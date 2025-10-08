@@ -47,8 +47,6 @@ Pushes the image to GitHub Container Registry (GHCR).
 - Ensure you have a Personal Access Token (PAT) with write:packages scope.
 - Add the PAT as a repository secret named GH_PAT in GitHub under Settings > Secrets and variables > Actions.
 - The workflow will automatically build and push the image to:ghcr.io/munagalasandeep99/wexa_ai_assignment:latest
-- ghcr.io/munagalasandeep99/wexa_ai_assignment:<build-number>
-- ghcr.io/munagalasandeep99/wexa_ai_assignment:<short-sha>
 
 
 
