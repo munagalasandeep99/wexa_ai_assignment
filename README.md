@@ -72,7 +72,7 @@ kubectl apply -f manifest_files/service.yaml
 
 Expose the service using Minikube:minikube service wexa-ai-service
 
-This will open the application in your default browser or provide a URL ```shell(e.g., http://<minikube-ip>:<node-port>).```
+This will open the application in your default browser or provide a URL ```(e.g., http://<minikube-ip>:<node-port>).```
 # Alternatively, use port-forwarding:
 ```shell
 kubectl port-forward service/wexa-ai-service 3000:80
