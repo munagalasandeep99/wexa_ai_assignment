@@ -10,19 +10,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Set unique image tag
       - name: Set image tag
         id: vars
         run: |
           echo "BUILD_NUMBER=${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
           echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
-          echo "IMAGE_TAG=${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
 
-      # Step 3: Log in to GitHub Container Registry
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -30,7 +26,6 @@ jobs:
           username: munagalasandeep99
           password: ${{ secrets.GH_PAT }}
 
-      # Step 4: Build and push Docker image
       - name: Build and push Docker image
         uses: docker/build-push-action@v3
         with:
@@ -38,22 +33,5 @@ jobs:
           push: true
           tags: |
             ghcr.io/munagalasandeep99/wexa_ai_assignment:latest
-            ghcr.io/munagalasandeep99/wexa_ai_assignment:${{ env.IMAGE_TAG }}
+            ghcr.io/munagalasandeep99/wexa_ai_assignment:${{ env.BUILD_NUMBER }}
             ghcr.io/munagalasandeep99/wexa_ai_assignment:${{ env.SHORT_SHA }}
-
-      # Step 5: Update deployment.yaml with new image
-      - name: Update Deployment manifest
-        run: |
-          DEPLOYMENT_FILE=manifest_files/deployment.yaml
-          NEW_IMAGE="ghcr.io/munagalasandeep99/wexa_ai_assignment:${{ env.IMAGE_TAG }}"
-          echo "Updating deployment image to $NEW_IMAGE"
-          sed -i "s#image: ghcr.io/munagalasandeep99/wexa_ai_assignment:.*#image: $NEW_IMAGE#" $DEPLOYMENT_FILE
-
-      # Step 6: Commit and push updated manifest using PAT
-      - name: Commit updated manifest
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add manifest_files/deployment.yaml
-          git commit -m "Update deployment image to ${{ env.IMAGE_TAG }}" || echo "No changes to commit"
-          git push https://munagalasandeep99:${{ secrets.PAT_TOKEN }}@github.com/munagalasandeep99/wexa_ai_assignment.git HEAD:main
