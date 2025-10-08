@@ -1,4 +1,4 @@
-Wexa AI Next.js Application
+# Wexa AI Next.js Application
 This repository contains a Next.js application created with npx create-next-app@latest, containerized using Docker, automated with GitHub Actions for building and pushing to GitHub Container Registry (GHCR), and deployed to a local Kubernetes cluster using Minikube. This project fulfills the requirements of the DevOps Internship Assessment.
 Prerequisites
 To set up and run this project, ensure you have the following installed:
@@ -13,8 +13,10 @@ A GitHub account with access to GitHub Container Registry (GHCR)
 Setup Instructions
 
 Clone the Repository
-git clone https://github.com/munagalasandeep99/<repository-name>.git
-cd <repository-name>
+```shell
+git clone https://github.com/munagalasandeep99/wexa_ai_assignment.git
+cd wexa_ai_assignment
+```
 
 
 Install DependenciesNavigate to the project directory and install the Next.js application dependencies:
