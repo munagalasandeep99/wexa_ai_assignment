@@ -13,6 +13,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Set image tag
+        id: vars
+        run: |
+          echo "BUILD_NUMBER=${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+          echo "SHORT_SHA=${GITHUB_SHA::7}" >> $GITHUB_ENV
+
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -25,4 +31,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/munagalasandeep99/wexa_ai_assignment:latest
+          tags: |
+            ghcr.io/munagalasandeep99/wexa_ai_assignment:latest
+            ghcr.io/munagalasandeep99/wexa_ai_assignment:${{ env.BUILD_NUMBER }}
+            ghcr.io/munagalasandeep99/wexa_ai_assignment:${{ env.SHORT_SHA }}

@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wexa-ai-app
+  labels:
+    app: wexa-ai-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: wexa-ai-app
+  template:
+    metadata:
+      labels:
+        app: wexa-ai-app
+    spec:
+      containers:
+        - name: wexa-ai-container
+          image: ghcr.io/munagalasandeep99/wexa_ai_assignment:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 20

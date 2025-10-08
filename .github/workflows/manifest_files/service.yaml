@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wexa-ai-service
+  labels:
+    app: wexa-ai-app
+spec:
+  selector:
+    app: wexa-ai-app
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: NodePort
