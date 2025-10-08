@@ -66,8 +66,8 @@ service.yaml: Exposes the application via a NodePort service, mapping port 80 to
 
 Apply the manifests:
 ```shell
-kubectl apply -f k8s/deployment.yaml
-kubectl apply -f k8s/service.yaml
+kubectl apply -f manifest_files/deployment.yaml
+kubectl apply -f manifest_files/service.yaml
 ```
 
 # Access the Application
@@ -75,8 +75,10 @@ kubectl apply -f k8s/service.yaml
 Expose the service using Minikube:minikube service wexa-ai-service
 
 This will open the application in your default browser or provide a URL (e.g., http://<minikube-ip>:<node-port>).
-# Alternatively, use port-forwarding:kubectl port-forward service/wexa-ai-service 3000:80
-
+# Alternatively, use port-forwarding:
+```shell
+kubectl port-forward service/wexa-ai-service 3000:80
+```
 The application will be available at http://localhost:3000.
 
 
